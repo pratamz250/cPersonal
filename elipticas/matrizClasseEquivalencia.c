@@ -1,41 +1,43 @@
 /*
- * Programa para printar a matriz da classe de equivalência de algum número natural desejado.
- * Compile como: gcc -Wall matrizClasseEquivalencia.c -o matrizClasseEquivalencia.x
- * Execute como: $ ./matrizClasseEquivalencia mod
- * O termo 'mod' é a classe de equivalência desejada!
+ * C program to calculate the congruence matrix of a giver number.
+ * Compile: gcc -Wall matrizClasseEquivalencia.c -lm -o matrizClasseEquivalencia.x
+ * Run: $ ./matrizClasseEquivalencia.x <mod> <col>
  * */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 int main(int argc, char *argv[]){
-	int mod;
-
-	if(argc != 2){
-		printf("Erro! Execute como: $./matrizClasseEquivalencia mod\n");
+	if(argc != 3){
+		printf("Error! Run: $./matrizClasseEquivalencia <mod> <col>\n");
 		exit(1);
 	}
-	mod = atoi(argv[1]);
-	int count = (-3)*mod;
-	int classe[mod][mod+2];
 
-	for(int i=0; i<mod+2; i++){
-		for(int j=0; j<mod; j++){
-			classe[j][i] = count;
-			count++;
-		}
+	//Init
+	int mod = atoi(argv[1]);
+	int col = atoi(argv[2]); //Number of columns
+	if(col % 2 != 1){
+		printf("Number of columns must be odd\n");
+		exit(1);
 	}
-	for(int i=0; i<mod; i++){
-		printf("\n[... ");
-		for(int j=0; j<mod+2; j++){
-			if(j==mod+1){
-				printf("%d ...]", classe[i][j]);
-			}else{
-				printf("%d\t", classe[i][j]); //É APENAS UMA MATRIZ TRANSPOSTA!!!!!!!
-			}
-		}
+	//int classes[mod-1][col];
+
+	//Finding the first element in the matrix
+	int aux = floor(col/2);
+	int first = 0; //Element in the 00 position in the matrix
+	for(int i=0; i<aux; i++){
+		first -= mod;
 	}
-	printf("\n");
+	printf("\n%d", first);
 	
+	//Finding the last element in the matrix
+	int last = mod-1; //Element in the ij position in the matrix
+	for(int i=0; i<aux; i++){
+		last += mod;
+	}
+	printf("\n%d\n", last);
+
+
 	return 0;
 }
