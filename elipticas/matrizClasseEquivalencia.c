@@ -38,24 +38,18 @@ int main(int argc, char *argv[]){
 	
 	//Assigning
 	for(int i=0; i<mod; i++){
+		if(i > 0) first++;
+		count = first;
 		for(int j=0; j<col; j++){
-			if(i == 0 && j == 0){
-				printf("%d\n", first);
-				classes[i][j] = first;
-			}else{
-				first += 1;
-				printf("%d\n", first);
-				classes[i][j] = first;
-			}
-			if(first == last) break;
+			classes[i][j] = count;
+			count += mod;
 		}
 	}
 
 	//Printing
-	printf("\n\n");
 	for(int i=0; i<mod; i++){
 		for(int j=0; j<col; j++){
-			printf("%d\t", classes[i][j]);	
+			printf("%d\t", classes[i][j]);
 		}
 		printf("\n");
 	}
