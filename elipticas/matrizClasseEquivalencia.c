@@ -11,10 +11,13 @@
 void mixMatrix(int mod, int col);
 void positiveSide(int mod, int col);
 void negativeSide(int mod, int col);
+void assigning(int mod, int col, int first, int count, int classes[mod][col]);
+void printing(int mod, int col, int classes[mod][col]);
 
 int main(){
 	int op, mod, col;
-	printf("Options\n1 - Mixed matrix (negative and positive)\n2 - Positive side\n3 - Negative side\n4 - Exit\nChoice: ");
+	printf("-----MENU-----\n");
+	printf("Options\n1 - Positive and negative sides\n2 - Positive side\n3 - Negative side\n4 - Help\n5 - Exit\nChoice: ");
 	scanf("%d", &op);
 
 	switch(op){
@@ -34,6 +37,14 @@ int main(){
 			negativeSide(mod, col);
 			break;
 		case 4:
+			printf("This is a basic C program to help the visualization of the equivalence classes of a desired number n.\n");
+			printf("There exist n - 1 equivalence classes. ");
+			printf("This will always keep the main column in the matrix.\n");
+			printf("The first option will print a desired odd number of columns. The second, only the positive side with any number of columns.");
+			printf(" The third, the negative with any nymber of columns.\n");
+			printf("<mod> means the desired number n. <col> means the number of columns.\n\n");
+			main();
+		case 5:
 			exit(1);
 		default:
 			printf("Error\n");
@@ -44,83 +55,55 @@ int main(){
 }
 
 void mixMatrix(int mod, int col){
-	//Init
 	if(col % 2 != 1){
 		printf("Number of columns must be odd.\n\n");
 		main();
 	}
 	int classes[mod][col];
 
-	//Finding the first element in the matrix
 	int aux = floor(col/2);
-	int first = 0; //Element in the 00-th position in the matrix
+	int first = 0; 
 
 	for(int i=0; i<aux; i++)
 		first -= mod;
 
-	int count = first; //This will help the correct assigning
+	int count = first;
 
-	//Assigning
-	for(int i=0; i<mod; i++){
-		if(i > 0) first++;
-		count = first;
-		for(int j=0; j<col; j++){
-			classes[i][j] = count;
-			count += mod;
-		}
-	}
+	assigning(mod, col, first, count, classes);
 
-	//Printing
-	for(int i=0; i<mod; i++){
-		for(int j=0; j<col; j++){
-			printf("%d\t", classes[i][j]);
-		}
-		printf("\n");
-	}
+	printing(mod, col, classes);
 
 	exit(1);
 }
 
 void positiveSide(int mod, int col){
-	//Init
+	int first = 0, count = 0;
 	int classes[mod][col];
 
-	//First element
-	int first = 0, count = 0;
+	assigning(mod, col, first, count, classes);
 
-	//Assingning 
-	for(int i=0; i<mod; i++){
-		if(i > 0) first++;
-		count = first;
-		for(int j=0; j<col; j++){
-			classes[i][j] = count;
-			count += mod;
-		}
-	}
-
-	//Printing
-	for(int i=0; i<mod; i++){
-		for(int j=0; j<col; j++){
-			printf("%d\t", classes[i][j]);
-		}
-		printf("\n");
-	}
+	printing(mod, col, classes);
 
 	exit(1);
 }
 
 void negativeSide(int mod, int col){
-	//Init
 	int classes[mod][col];
 
-	//Finding the first element in the matrix
 	int first = 0;
 	for(int i=0; i<col-1; i++)
 		first -= mod;
 
 	int count = first;
+	
+	assigning(mod, col, first, count, classes);
 
-	//Assigning
+	printing(mod, col, classes);
+
+	exit(1);
+}
+
+void assigning(int mod, int col, int first, int count, int classes[mod][col]){
 	for(int i=0; i<mod; i++){
 		if(i > 0) first++;
 		count = first;
@@ -129,14 +112,16 @@ void negativeSide(int mod, int col){
 			count += mod;
 		}
 	}
+}
 
-	//Printing
+void printing(int mod, int col, int classes[mod][col]){
+	printf("Equivalence classes (mod %d) with %d columns:\n", mod, col);
+
 	for(int i=0; i<mod; i++){
+		printf("(... ");
 		for(int j=0; j<col; j++){
-			printf("%d\t", classes[i][j]);
+			printf("%10d,", classes[i][j]);
 		}
-		printf("\n");
+		printf("          ...)\n");
 	}
-
-	exit(1);
 }
