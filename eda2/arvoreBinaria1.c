@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no {
+	int dado;
+	struct no *esq, *dir;
+} no;
+
+/* Protótipos */
+no* criarNo(int x);
+no* inserir(no* raiz, int x);
+no* buscar(no* raiz, int x);
+
+void preOrdem(no* raiz);
+void emOrdem(no* raiz);
+void posOrdem(no* raiz);
+
+int altura(no* raiz);
+int contarNos(no* raiz);
+
+void destruir(no* raiz);
+
+/* ================= IMPLEMENTAÇÃO ================= */
+
+no* criarNo(int x){
+	no* novo = (no*) malloc(sizeof(no));
+	if(novo == NULL){
+		exit(1);
+	}
+	novo->dado = x;
+	novo->esq = novo->dir = NULL;
+	return novo;
+}
+
+/* Inserção simples (preenche primeiro à esquerda, depois direita) */
+no* inserir(no* raiz, int x){
+	if(raiz == NULL){
+		return criarNo(x);
+	}
+
+	if(raiz->esq == NULL){
+		raiz->esq = inserir(raiz->esq, x);
+	} else if(raiz->dir == NULL){
+		raiz->dir = inserir(raiz->dir, x);
+	} else {
+		/* continua recursivamente na subárvore esquerda */
+		raiz->esq = inserir(raiz->esq, x);
+	}
+
+	return raiz;
+}
+
+/* Busca simples (percorre toda a árvore) */
+no* buscar(no* raiz, int x){
+	if(raiz == NULL) return NULL;
+
+	if(raiz->dado == x) return raiz;
+
+	no* esq = buscar(raiz->esq, x);
+	if(esq != NULL) return esq;
+
+	return buscar(raiz->dir, x);
+}
+
+/* Percursos */
+
+void preOrdem(no* raiz){
+	if(raiz != NULL){
+		printf("%d ", raiz->dado);
+		preOrdem(raiz->esq);
+		preOrdem(raiz->dir);
+	}
+}
+
+void emOrdem(no* raiz){
+	if(raiz != NULL){
+		emOrdem(raiz->esq);
+		printf("%d ", raiz->dado);
+		emOrdem(raiz->dir);
+	}
+}
+
+void posOrdem(no* raiz){
+	if(raiz != NULL){
+		posOrdem(raiz->esq);
+		posOrdem(raiz->dir);
+		printf("%d ", raiz->dado);
+	}
+}
+
+/* Altura da árvore */
+int altura(no* raiz){
+	if(raiz == NULL) return -1;
+
+	int h_esq = altura(raiz->esq);
+	int h_dir = altura(raiz->dir);
+
+	return (h_esq > h_dir ? h_esq : h_dir) + 1;
+}
+
+/* Contar nós */
+int contarNos(no* raiz){
+	if(raiz == NULL) return 0;
+	return 1 + contarNos(raiz->esq) + contarNos(raiz->dir);
+}
+
+/* Liberar memória */
+void destruir(no* raiz){
+	if(raiz != NULL){
+		destruir(raiz->esq);
+		destruir(raiz->dir);
+		free(raiz);
+	}
+}
+
