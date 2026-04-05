@@ -9,18 +9,36 @@ typedef struct no{
 no *criar(int x);
 no *inserir(no *raiz, int x);
 no *buscar(no *raiz, int x);
-
 void preOrdem(no *raiz);
 void emOrdem(no *raiz);
 void posOrdem(no *raiz);
-
 int altura(no *raiz);
 int contarNos(no *raiz);
-
 void destruir(no *raiz);
+
+int main(){
+	no *raiz = criar(7);
+
+	inserir(raiz, 1);
+	inserir(raiz, 2);
+
+	int q = contarNos(raiz);
+	printf("%d\n", q);
+
+	preOrdem(raiz);
+	printf("\n");
+	emOrdem(raiz);
+	printf("\n");
+	posOrdem(raiz);
+
+	printf("\n");
+	return 0;
+}
 
 no *criar(int x){
 	no *novo = (no*) malloc(sizeof(no));
+	if(novo == NULL) exit(1);
+
 	novo->dado = x;
 	novo->esq = novo->dir = NULL;
 
@@ -29,7 +47,7 @@ no *criar(int x){
 
 no* inserir(no *raiz, int x){
 	if(raiz == NULL){
-		exit(1);
+		return criar(x);
 	}
 
 	if(raiz->esq == NULL){
@@ -44,7 +62,7 @@ no* inserir(no *raiz, int x){
 }
 
 no *buscar(no *raiz, int x){
-	if(raiz == NULL) exit(1);
+	if(raiz == NULL) return NULL;
 
 	if(raiz->dado == x) return raiz;
 
@@ -87,10 +105,10 @@ int altura(no *raiz){
 	return (h_esq > h_dir ? h_esq : h_dir)+1;
 }
 
-int contaNos(no *raiz){
+int contarNos(no *raiz){
 	if(raiz == NULL) return 0;
 
-	return contaNos(raiz->esq) + contaNos(raiz->dir) + 1;
+	return contarNos(raiz->esq) + contarNos(raiz->dir) + 1;
 }
 
 void destruir(no *raiz){
