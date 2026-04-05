@@ -6,7 +6,6 @@ typedef struct no {
 	struct no *esq, *dir;
 } no;
 
-/* Protótipos */
 no* criarNo(int x);
 no* inserir(no* raiz, int x);
 no* buscar(no* raiz, int x);
@@ -20,8 +19,6 @@ int contarNos(no* raiz);
 
 void destruir(no* raiz);
 
-/* ================= IMPLEMENTAÇÃO ================= */
-
 no* criarNo(int x){
 	no* novo = (no*) malloc(sizeof(no));
 	if(novo == NULL){
@@ -32,7 +29,6 @@ no* criarNo(int x){
 	return novo;
 }
 
-/* Inserção simples (preenche primeiro à esquerda, depois direita) */
 no* inserir(no* raiz, int x){
 	if(raiz == NULL){
 		return criarNo(x);
@@ -43,14 +39,12 @@ no* inserir(no* raiz, int x){
 	} else if(raiz->dir == NULL){
 		raiz->dir = inserir(raiz->dir, x);
 	} else {
-		/* continua recursivamente na subárvore esquerda */
 		raiz->esq = inserir(raiz->esq, x);
 	}
 
 	return raiz;
 }
 
-/* Busca simples (percorre toda a árvore) */
 no* buscar(no* raiz, int x){
 	if(raiz == NULL) return NULL;
 
@@ -61,8 +55,6 @@ no* buscar(no* raiz, int x){
 
 	return buscar(raiz->dir, x);
 }
-
-/* Percursos */
 
 void preOrdem(no* raiz){
 	if(raiz != NULL){
@@ -88,7 +80,6 @@ void posOrdem(no* raiz){
 	}
 }
 
-/* Altura da árvore */
 int altura(no* raiz){
 	if(raiz == NULL) return -1;
 
@@ -98,13 +89,11 @@ int altura(no* raiz){
 	return (h_esq > h_dir ? h_esq : h_dir) + 1;
 }
 
-/* Contar nós */
 int contarNos(no* raiz){
 	if(raiz == NULL) return 0;
 	return 1 + contarNos(raiz->esq) + contarNos(raiz->dir);
 }
 
-/* Liberar memória */
 void destruir(no* raiz){
 	if(raiz != NULL){
 		destruir(raiz->esq);
@@ -112,4 +101,3 @@ void destruir(no* raiz){
 		free(raiz);
 	}
 }
-
