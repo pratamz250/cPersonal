@@ -13,6 +13,31 @@ struct no{
 	int item;
 };
 
+Lista *criar();
+void inserir(Lista *l, int z);
+int remover(Lista *l, int z);
+int imprimir(Lista *l);
+No *busca(Lista *l, int z);
+int tamanho(Lista *l);
+
+int main(){
+	Lista *l = criar();
+
+	for(int i=0; i<=10; i++) inserir(l, i);
+
+	imprimir(l);
+	printf("\n");
+
+	No *resultado = busca(l, 2);
+	if(resultado == NULL) printf("Nao encontrado\n");
+	else printf("%d encontrado\n", resultado->item);
+
+	printf("Tamanho: %d\n", tamanho(l));
+
+	printf("\n");
+	return 0;
+}
+
 Lista *criar(){
 	Lista *l = (Lista*) malloc(sizeof(Lista));
 	l->prim = NULL;
@@ -22,8 +47,8 @@ Lista *criar(){
 
 void inserir(Lista *l, int z){
 	No *novo = (No*) malloc(sizeof(No));
-	no->item = z;
-	no->prox = NULL;
+	novo->item = z;
+	novo->prox = NULL;
 
 	if(l->prim == NULL){
 		l->prim = novo;
@@ -55,4 +80,47 @@ int remover(Lista *l, int z){
 	}
 
 	return 1;
+}
+
+int imprimir(Lista *l){
+	No *atual = l->prim;
+	
+	if(atual == NULL) return -1;
+
+	while(atual != NULL){
+		printf("%d ", atual->item);
+		atual = atual->prox;
+	}
+
+	return 0;
+}
+
+No *busca(Lista *l, int z){
+	No *atual = l->prim;
+
+	if(atual == NULL) return NULL;
+
+	while(atual != NULL){
+		if(atual->item == z){
+			return atual;
+		}else{
+			atual = atual->prox;
+		}
+	}
+
+	return NULL;
+}
+
+int tamanho(Lista *l){
+	No *atual = l->prim;
+	int count=0;
+
+	if(atual == NULL) return -1;
+
+	while(atual != NULL){
+		atual = atual->prox;
+		count++;
+	}
+
+	return count;
 }
