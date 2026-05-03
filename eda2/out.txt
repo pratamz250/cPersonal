@@ -1,0 +1,45 @@
+In file included from hash.h:3,
+                 from hash1.c:3:
+hashListaEncadeada.h:5:9: error: unknown type name ‘No’
+    5 |         No *prim;
+      |         ^~
+In file included from hashListaEncadeada.c:3:
+hashListaEncadeada.h:5:9: error: unknown type name ‘No’
+    5 |         No *prim;
+      |         ^~
+hashListaEncadeada.c: In function ‘inserir’:
+hashListaEncadeada.c:20:20: warning: assignment to ‘struct no *’ from incompatible pointer type ‘int *’ [-Wincompatible-pointer-types]
+   20 |         novo->prox = l->prim;
+      |                    ^
+hashListaEncadeada.c:21:17: warning: assignment to ‘int *’ from incompatible pointer type ‘No *’ {aka ‘struct no *’} [-Wincompatible-pointer-types]
+   21 |         l->prim = novo;
+      |                 ^
+hashListaEncadeada.c: In function ‘remover’:
+hashListaEncadeada.c:25:21: warning: initialization of ‘No *’ {aka ‘struct no *’} from incompatible pointer type ‘int *’ [-Wincompatible-pointer-types]
+   25 |         No *atual = l->prim;
+      |                     ^
+hashListaEncadeada.c:31:41: warning: assignment to ‘int *’ from incompatible pointer type ‘struct no *’ [-Wincompatible-pointer-types]
+   31 |                                 l->prim = atual->prox;
+      |                                         ^
+hashListaEncadeada.c: In function ‘buscaLista’:
+hashListaEncadeada.c:46:21: warning: initialization of ‘No *’ {aka ‘struct no *’} from incompatible pointer type ‘int *’ [-Wincompatible-pointer-types]
+   46 |         No *atual = l->prim;
+      |                     ^
+In file included from hash.h:3,
+                 from hash.c:3:
+hashListaEncadeada.h:5:9: error: unknown type name ‘No’
+    5 |         No *prim;
+      |         ^~
+hash.c: In function ‘inserirHash’:
+hash.c:35:30: warning: passing argument 1 of ‘inserirHash’ from incompatible pointer type [-Wincompatible-pointer-types]
+   35 |         inserirHash(h->tabela[idx], chave, valor);
+      |                     ~~~~~~~~~^~~~~
+      |                              |
+      |                              Lista * {aka struct lista *}
+hash.c:25:24: note: expected ‘Hash *’ but argument is of type ‘Lista *’ {aka ‘struct lista *’}
+   25 | void inserirHash(Hash *h, int chave, int valor){
+      |                  ~~~~~~^
+hash.c: In function ‘imprimirHash’:
+hash.c:63:29: warning: initialization of ‘No *’ {aka ‘struct no *’} from incompatible pointer type ‘int *’ [-Wincompatible-pointer-types]
+   63 |                 No *atual = h->tabela[i]->prim;
+      |                             ^
