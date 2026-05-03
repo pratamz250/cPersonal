@@ -1,9 +1,3 @@
-/*
- * Uma implementacao simples de tabela hash
- * Compile: gcc hash1.c hashListaEncadeada.c hash.c -o hash1.x
- * Run: ./hash1.x
- * */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "hash.h"
