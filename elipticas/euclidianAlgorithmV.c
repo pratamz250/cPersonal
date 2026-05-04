@@ -13,9 +13,9 @@ int main(){
 		a = b;
 		b = aux;
 	}
-	printf("gcd(%d, %d)\n", a, b);
+	//printf("gcd(%d, %d)\n", a, b);
 	while(b != 0){
-		printf("%d: (%d, %d)\n", count, a, b);
+		//printf("%d: (%d, %d)\n", count, a, b);
 		rest = a % b;
 		a = b;
 		b = rest;
